@@ -1,0 +1,11 @@
+### Basic Application Settings
+
+### Server Settings
+server:
+  port: 8282
+
+### Application Settings
+application:
+  client:
+    endpoint:
+      consulta-cpf: "https://user-info.herokuapp.com/users/"

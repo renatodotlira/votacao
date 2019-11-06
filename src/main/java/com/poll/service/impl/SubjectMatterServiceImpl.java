@@ -6,6 +6,7 @@ import com.poll.exceptions.BadRequestException;
 import com.poll.exceptions.NotFoundException;
 import com.poll.model.SubjectMatter;
 import com.poll.repository.SubjectMatterRepository;
+import com.poll.service.Producer;
 import com.poll.service.SubjectMatterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,10 @@ import java.util.Optional;
 public class SubjectMatterServiceImpl implements SubjectMatterService {
 
     @Autowired
-    SubjectMatterRepository repository;
+    private SubjectMatterRepository repository;
+
+    @Autowired
+    private Producer producer;
 
     @Override
     public SubjectMatter save(SubjectMatter subjectMatter) {
@@ -57,6 +61,7 @@ public class SubjectMatterServiceImpl implements SubjectMatterService {
             if (checkIsFinalized(subjectMatter)) {
                 subjectMatter.calcAndSetResult();
                 save(subjectMatter);
+                producer.sendMessage("Subject matter: "+subjectMatter.getName()+" result: "+subjectMatter.getResult());
             }
         }
         return subjectMatter.toDto();

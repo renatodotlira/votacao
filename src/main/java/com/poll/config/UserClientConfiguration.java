@@ -8,6 +8,7 @@ import feign.Retryer;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import feign.slf4j.Slf4jLogger;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -35,5 +36,10 @@ public class UserClientConfiguration {
                 .logLevel(Logger.Level.BASIC)
                 .retryer(Retryer.NEVER_RETRY)
                 .target(UserClient.class, coreUrl);
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 }

@@ -7,6 +7,6 @@ import feign.RequestLine;
 public interface UserClient {
 
     @RequestLine("GET /{cpf}")
-    FlagAbleToVoteDto isAbleToVote(@Param("cpf") Long cpf);
+    FlagAbleToVoteDto isAbleToVote(@Param("cpf") String cpf);
 
 }

@@ -25,10 +25,12 @@ public class SubjectMatterDto {
 
     private FlagResultEnum result;
 
+    private int voteYesAmount = 0;
+
+    private int voteNoAmount = 0;
+
     @JsonIgnore
     private ModelMapper modelMapper = new ModelMapper();
-
-    public SubjectMatterDto(){}
 
     public SubjectMatter toEntity(){
         return modelMapper.map(this, SubjectMatter.class);

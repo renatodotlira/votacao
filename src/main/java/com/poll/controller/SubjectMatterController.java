@@ -27,4 +27,10 @@ public class SubjectMatterController {
         return service.listAll();
     }
 
+    @GetMapping("result/")
+    @ApiOperation("Exibe o resultado de uma pauta")
+    public SubjectMatterDto findById(@RequestParam String id) {
+        return service.showResult(id);
+    }
+
 }

@@ -74,8 +74,10 @@ public class SubjectMatter {
     public void calcAndSetResult(){
         if(this.voteNoAmount > this.voteYesAmount)
             this.result = FlagResultEnum.NO;
-        else
+        else if (this.voteNoAmount < this.voteYesAmount)
             this.result = FlagResultEnum.YES;
+        else
+            this.result = FlagResultEnum.DRAW;
     }
 
 }

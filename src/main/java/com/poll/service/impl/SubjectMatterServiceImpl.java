@@ -41,7 +41,7 @@ public class SubjectMatterServiceImpl implements SubjectMatterService {
     @Override
     public List<SubjectMatterDto> listAll() {
         List<SubjectMatterDto> subjectMatterDtos = new ArrayList<>();
-        repository.findAll().forEach(student -> subjectMatterDtos.add(student.toDto()));
+        repository.findAll().forEach(subjectMatter -> subjectMatterDtos.add(subjectMatter.toDto()));
         return subjectMatterDtos;
     }
 
@@ -61,7 +61,7 @@ public class SubjectMatterServiceImpl implements SubjectMatterService {
             if (checkIsFinalized(subjectMatter)) {
                 subjectMatter.calcAndSetResult();
                 save(subjectMatter);
-                producer.sendMessage("Subject matter: "+subjectMatter.getName()+" result: "+subjectMatter.getResult());
+                producer.sendMessage("Subject matter: "+subjectMatter.getName()+", result: "+subjectMatter.getResult());
             }
         }
         return subjectMatter.toDto();
@@ -70,9 +70,7 @@ public class SubjectMatterServiceImpl implements SubjectMatterService {
     private boolean checkIsFinalized(SubjectMatter subjectMatter){
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime end = subjectMatter.getVotingEnd();
-        if(now.isAfter(end))
-            return true;
-        return false;
+        return now.isAfter(end);
     }
 
     private SubjectMatterDto datesProcess(SubjectMatterDto subjectMatterDto) {

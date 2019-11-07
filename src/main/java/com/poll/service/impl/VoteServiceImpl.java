@@ -30,7 +30,7 @@ public class VoteServiceImpl implements VoteService {
     public VoteDto save(VoteDto voteDto) {
         voteDto.setId(null);
         String cpf = voteDto.getUserCpf();
-        voteDto.setUserCpf(cpf.replaceAll("[^\\d.]", ""));
+        voteDto.setUserCpf(cpf.replaceAll("[^0-9 ]", ""));
         SubjectMatter subjectMatter = getSubjectMatter(voteDto);
 
         checkIsVotingTime(subjectMatter);
@@ -45,9 +45,7 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public VoteDto findBySubjectMatterIdAndUserCpf(String id, String cpf) {
         Optional<Vote> optionalVote = repository.findBySubjectMatterIdAndUserCpf(id, cpf);
-        if (optionalVote.isPresent())
-            return optionalVote.get().toDto();
-        return null;
+        return optionalVote.map(Vote::toDto).orElse(null);
     }
 
     private SubjectMatter getSubjectMatter(VoteDto voteDto){

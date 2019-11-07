@@ -9,3 +9,5 @@ application:
   client:
     endpoint:
       consulta-cpf: "https://user-info.herokuapp.com/users/"
+  kafka:
+    server: "18.231.179.30:9092"

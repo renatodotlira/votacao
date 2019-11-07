@@ -35,4 +35,5 @@ public class Vote {
     public VoteDto toDto(){
         return modelMapper.map(this, VoteDto.class);
     }
+
 }
